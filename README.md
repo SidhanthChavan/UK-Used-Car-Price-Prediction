@@ -1,75 +1,72 @@
-# UK Used Car Price Prediction
+# UK Used-Car Price Modelling
 
-> End-to-end regression project showing progression from baseline models to advanced ensemble methods.
-> **Part 1: R² = 0.88 (Decision Tree) → Part 2: R² = 0.94 (Stacking Ensemble)**
+Two MSc coursework notebooks exploring regression techniques on approximately 402,000 UK vehicle listings. The project documents a progression from baseline models to tree ensembles, model interpretation and unsupervised feature experiments.
 
-## The Story
+The repository is best read as a record of exploratory modelling decisions. Its saved outputs are not presented as a production benchmark because the current notebooks perform some preprocessing before the train/test split and contain machine-specific data paths.
 
-This project spans two semesters of MSc Data Science — the same dataset, increasingly sophisticated approaches.
+## Project structure
 
-Part 1 established baselines comparing Linear Regression, KNN, and Decision Tree on 400,000 UK used car listings. Part 2 advanced to stacking ensembles, SHAP interpretability, and dimensionality reduction — pushing R² from 0.88 to 0.94.
+```text
+.
+├── part1-regression/
+│   ├── car_price_regression.ipynb
+│   └── ML_Report.pdf
+├── part2-ensemble/
+│   └── car_price_ensemble.ipynb
+├── requirements.txt
+└── README.md
+```
 
----
+## Part 1: regression baselines
 
-## Part 1 — Regression Baselines
+The first notebook covers:
 
-### Dataset
+- missing-value inspection and basic exploratory analysis
+- vehicle-age feature engineering
+- categorical encoding and feature scaling
+- Linear Regression, K-Nearest Neighbours and Decision Tree models
+- residual review and tree feature importance
 
-- 400,000 UK used car listings
-- Features: mileage, year, brand, fuel type, transmission, body type, condition
-- Target: sale price
+## Part 2: ensemble experiments
 
-### Results
+The second notebook extends the work with:
 
-| Model | R² | RMSE |
-|-------|-----|------|
-| Decision Tree | 0.880 | 0.341 |
-| KNN | 0.853 | 0.385 |
-| Linear Regression | 0.511 | 0.701 |
+- Random Forest and Gradient Boosting regression
+- a stacking regressor with a Ridge meta-model
+- RFECV and univariate feature selection
+- SHAP-based interpretation
+- PCA, t-SNE and K-Means experiments
 
-### Methodology
+These techniques are exploratory. The notebook needs a clean, single execution path before its metrics can be considered reproducible.
 
-- Missing value imputation (median for numerical, mode for categorical)
-- IQR-based outlier removal
-- Feature engineering: VehicleAge, PricePerMile
-- One-hot encoding (low cardinality) + frequency encoding (high cardinality)
-- StandardScaler normalisation
-- GridSearchCV hyperparameter tuning with 5-fold cross-validation
-- Feature importance analysis — vehicle age and mileage are top predictors
+## Dataset
 
----
+The saved notebook output shows 402,005 rows and 12 source columns, including mileage, registration year, make, model, condition, body type, fuel type and price.
 
-## Part 2 — Advanced Ensemble Methods
+The dataset is not included in this repository. Both notebooks currently reference local file locations. To reproduce the work, obtain the original `adverts.csv` file and update the first `read_csv` cell in each notebook.
 
-### Results
+## Local setup
 
-| Model | R² |
-|-------|-----|
-| Stacking Ensemble | 0.94 |
-| Random Forest baseline | ~0.88 |
+```bash
+git clone https://github.com/SidhanthChavan/UK-Used-Car-Price-Prediction.git
+cd UK-Used-Car-Price-Prediction
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+jupyter notebook
+```
 
-### Methodology
+## Reproducibility work still required
 
-- Stacking ensemble: Random Forest + Gradient Boosting + Ridge meta-learner
-- RFECV feature selection
-- RandomizedSearchCV hyperparameter tuning
-- SHAP TreeExplainer for model interpretability
-- PCA + t-SNE dimensionality reduction
-- K-Means clustering as feature engineering technique
-- Tableau dashboard for stakeholder-ready visualisation
+- Split the raw data before fitting imputers, encoders or scalers.
+- Replace the random dummy-target encoding in the ensemble notebook.
+- Remove stale outputs and execute every cell once from a fresh kernel.
+- Keep all transformations inside scikit-learn pipelines.
+- Add a public dataset reference or a documented download procedure.
+- Save final metrics in original currency units and distinguish MSE from RMSE.
 
----
+Until that work is complete, the existing scores should be treated as exploratory notebook outputs rather than verified model performance.
 
-## Project Structure
----
+## Stack
 
-## Tech Stack
-
-Python · Pandas · NumPy · Scikit-Learn · SHAP · Matplotlib · Seaborn · Tableau
-
----
-
-## Author
-
-Sidhanth Chavan — MSc Data Science, Manchester Metropolitan University
-linkedin.com/in/sidhanth-chavan · github.com/SidhanthChavan
+Python, Pandas, NumPy, scikit-learn, SHAP, Matplotlib and Seaborn.
