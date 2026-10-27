@@ -70,3 +70,7 @@ Until that work is complete, the existing scores should be treated as explorator
 ## Stack
 
 Python, Pandas, NumPy, scikit-learn, SHAP, Matplotlib and Seaborn.
+
+## Evaluation evidence
+
+See [evaluation evidence](docs/evaluation-evidence.md) for the exact saved scores, dataset-row meaning, preprocessing issues and requirements for a defensible rerun.
