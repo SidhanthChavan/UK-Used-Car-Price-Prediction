@@ -2,7 +2,7 @@
 
 Two MSc coursework notebooks exploring regression techniques on approximately 402,000 UK vehicle listings. The project documents a progression from baseline models to tree ensembles, model interpretation and unsupervised feature experiments.
 
-The repository is best read as a record of exploratory modelling decisions. Its saved outputs are not presented as a production benchmark because the current notebooks perform some preprocessing before the train/test split and contain machine-specific data paths.
+The notebooks show the full modelling workflow: data cleaning, feature engineering, model comparison, ensembling, feature selection and SHAP interpretation. Known limitations are listed at the end.
 
 ## Project structure
 
@@ -13,6 +13,9 @@ The repository is best read as a record of exploratory modelling decisions. Its 
 │   └── ML_Report.pdf
 ├── part2-ensemble/
 │   └── car_price_ensemble.ipynb
+├── data/                  # put adverts.csv here (not committed)
+├── docs/
+│   └── evaluation-evidence.md
 ├── requirements.txt
 └── README.md
 ```
@@ -37,13 +40,11 @@ The second notebook extends the work with:
 - SHAP-based interpretation
 - PCA, t-SNE and K-Means experiments
 
-These techniques are exploratory. The notebook needs a clean, single execution path before its metrics can be considered reproducible.
-
 ## Dataset
 
 The saved notebook output shows 402,005 rows and 12 source columns, including mileage, registration year, make, model, condition, body type, fuel type and price.
 
-The dataset is not included in this repository. Both notebooks currently reference local file locations. To reproduce the work, obtain the original `adverts.csv` file and update the first `read_csv` cell in each notebook.
+The dataset is not included in this repository. To run the notebooks, place the original `adverts.csv` file in a `data/` folder at the repository root. Both notebooks read it from `../data/adverts.csv`.
 
 ## Local setup
 
@@ -56,16 +57,11 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
-## Reproducibility work still required
+## Limitations and next steps
 
-- Split the raw data before fitting imputers, encoders or scalers.
-- Replace the random dummy-target encoding in the ensemble notebook.
-- Remove stale outputs and execute every cell once from a fresh kernel.
-- Keep all transformations inside scikit-learn pipelines.
-- Add a public dataset reference or a documented download procedure.
-- Save final metrics in original currency units and distinguish MSE from RMSE.
-
-Until that work is complete, the existing scores should be treated as exploratory notebook outputs rather than verified model performance.
+- Some preprocessing (outlier clipping and scaling) runs before the train/test split, so the saved scores may be slightly optimistic. The next version will move every transformation into a scikit-learn `Pipeline` fitted on the training split only.
+- In the ensemble notebook, several categorical columns are encoded against a random placeholder target. These should be replaced with train-only target encoding or one-hot encoding.
+- Metrics should be reported in pounds (RMSE and MAE) alongside MSE.
 
 ## Stack
 
@@ -74,3 +70,7 @@ Python, Pandas, NumPy, scikit-learn, SHAP, Matplotlib and Seaborn.
 ## Evaluation evidence
 
 See [evaluation evidence](docs/evaluation-evidence.md) for the exact saved scores, dataset-row meaning, preprocessing issues and requirements for a defensible rerun.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).

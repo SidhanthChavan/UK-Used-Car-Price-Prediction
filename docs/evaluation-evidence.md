@@ -26,7 +26,7 @@ However, a later stacking cell saves R-squared `0.924750660144111` and RMSE
 - Scaling is fitted before splitting, including on the target.
 - Several categorical columns are encoded using an unseeded random dummy
   target. This does not provide a defensible price-based encoding.
-- Saved outputs reflect different runs or data states; paths are machine-specific.
+- Saved outputs reflect different runs or data states.
 - One cell labels MSE as RMSE. Later cells calculate its square root correctly.
 
 ## Required rerun
